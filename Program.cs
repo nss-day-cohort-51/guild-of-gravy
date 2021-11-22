@@ -21,7 +21,7 @@ namespace plan_your_heist
         public static void AddTeamMember()
         {
             TeamMember member1 = new TeamMember();
-            Console.Write("Enter team member name: ");
+            Console.Write("Enter team member name or press Enter if finished: ");
             member1.Name = Console.ReadLine();
             RunHeist(member1.Name);
             Console.Write($"Enter {member1.Name}'s skill level: ");
