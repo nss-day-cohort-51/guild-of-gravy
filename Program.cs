@@ -12,25 +12,26 @@ namespace plan_your_heist
         static void Main(string[] args)
         {
             Console.WriteLine("Plan Your Heist!");
-            Console.Write("Bank Difficulty Level: ");
-            BankDifficultyLevel = int.Parse(Console.ReadLine());
-            Console.WriteLine();
+            Write("Bank Difficulty Level: ");
+            BankDifficultyLevel = int.Parse(ReadLine());
+            Console.Clear();
             AddTeamMember();
         }
 
         public static void AddTeamMember()
         {
             TeamMember member1 = new TeamMember();
-            Console.Write("Enter team member name or press Enter if finished: ");
-            member1.Name = Console.ReadLine();
+            Write("Enter team member name or press Enter if finished: ");
+            member1.Name = ReadLine();
             RunHeist(member1.Name);
-            Console.Write($"Enter {member1.Name}'s skill level: ");
-            member1.SkillLevel = int.Parse(Console.ReadLine());
+            Write($"Enter {member1.Name}'s skill level: ");
+            member1.SkillLevel = int.Parse(ReadLine());
 
-            Console.Write($"Enter {member1.Name}'s courage factor: ");
-            member1.CourageFactor = decimal.Parse(Console.ReadLine());
+            Write($"Enter {member1.Name}'s courage factor: ");
+            member1.CourageFactor = decimal.Parse(ReadLine());
             Team.Add(member1);
-            Console.WriteLine("Team member added!");
+            Console.Clear();
+            WriteLine("Team member added!");
             Console.WriteLine();
             TeamSkillLevel += member1.SkillLevel;
 
@@ -41,35 +42,51 @@ namespace plan_your_heist
         {
             if (string.IsNullOrWhiteSpace(memberName))
             {
-                Console.Write("How many times do you want this to run? ");
-                int trialRuns = int.Parse(Console.ReadLine());
-                Console.WriteLine();
+                Console.Clear();
+                Write("How many times do you want this to run? ");
+                int trialRuns = int.Parse(ReadLine());
+                Console.Clear();
                 int success = 0;
                 int failed = 0;
                 for (int i = 0; i < trialRuns; i++)
                 {
                     HeistLuck = new Random().Next(-10, 10);
                     BankDifficultyLevel += HeistLuck;
-                    Console.WriteLine($"Team Skill Level: {TeamSkillLevel}");
-                    Console.WriteLine("Bank Difficulty Level: {0}", BankDifficultyLevel);
+                    WriteLine($"Team Skill Level: {TeamSkillLevel}");
+                    WriteLine($"Bank Difficulty Level: {BankDifficultyLevel}");
                     if (TeamSkillLevel >= BankDifficultyLevel)
                     {
-                        Console.WriteLine("You successfully robbed the bank!");
+                        WriteLine("You successfully robbed the bank!");
                         success += 1;
                     }
                     else
                     {
-                        Console.WriteLine("Uh oh! You and your team got caught :(");
+                        WriteLine("Uh oh! You and your team got caught :(");
                         failed += 1;
                     }
                     Console.WriteLine();
                     BankDifficultyLevel -= HeistLuck;
                 }
-                Console.WriteLine($"==== Heist Report ====");
-                Console.WriteLine($"Successful Runs: {success}");
-                Console.WriteLine($"Failed Runs: {failed}");
+                WriteLine($"==== Heist Report ====");
+                WriteLine($"Successful Runs: {success}");
+                WriteLine($"Failed Runs: {failed}");
                 Environment.Exit(0);
             }
+        }
+
+        public static void WriteLine(string stringInput)
+        {
+            Console.WriteLine(stringInput);
+        }
+
+        public static void Write(string stringInput)
+        {
+            Console.Write(stringInput);
+        }
+
+        public static string ReadLine()
+        {
+            return Console.ReadLine();
         }
     }
 }
