@@ -6,6 +6,10 @@ namespace plan_your_heist
     class Program
     {
         public static List<TeamMember> Team = new List<TeamMember>();
+
+        public static int BankDifficultyLevel = 100;
+
+        public static int TeamSkillLevel;
         static void Main(string[] args)
         {
             Console.WriteLine("Plan Your Heist!");
@@ -14,8 +18,17 @@ namespace plan_your_heist
             member1.Name = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(member1.Name))
             {
-                Console.WriteLine("Done!");
-                Environment.Exit(0);
+                if (TeamSkillLevel >= BankDifficultyLevel)
+                {
+                    Console.WriteLine("You succesfully robbed the bank!");
+                    Environment.Exit(0);
+                }
+                else
+                {
+                    Console.WriteLine("Uh oh! You and your team got caught :(");
+                    Environment.Exit(0);
+                }
+
             }
 
             Console.Write($"Enter {member1.Name}'s skill level: ");
@@ -27,11 +40,7 @@ namespace plan_your_heist
             Console.WriteLine($"There are {Team.Count} team members in your team.");
             foreach (TeamMember member in Team)
             {
-                Console.WriteLine($@"
-                    Member Name: {member.Name}
-                    Member Skill Level: {member.SkillLevel}
-                    Member Courage Factor: {member.CourageFactor}
-                ");
+                TeamSkillLevel += member.SkillLevel;
             }
             member1 = null;
             Main(new string[] { });
